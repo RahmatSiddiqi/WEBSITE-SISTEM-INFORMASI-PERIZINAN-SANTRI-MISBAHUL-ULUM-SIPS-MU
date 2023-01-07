@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Pelaporan extends Model
+{
+    use HasFactory;
+
+    public function perizinan()
+    {
+        return $this->belongsTo(Perizinan::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(Pelaporan::class);
+    }
+}
