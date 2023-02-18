@@ -29,8 +29,9 @@
                                 <path
                                     d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z" />
                             </svg>
-                            <div class="mt-4 mx-5">
+                            <div class=" d-inline-flex mt-4 mx-5">
                                 <h4 class="fw-bold">JUMLAH SANTRI</h4>
+                                <h4 class=" mx-5 fw-bold">{{ $santricount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -51,8 +52,6 @@
                         </button>
 
                         <button type="button" class="btn btn-warning fw-semibold mx-4">Reset Data <- </button>
-
-                                <button type="button"class="btn btn-primary text-black fw-semibold mx-4">Searching</button>
                     </div>
                 </div>
                 <div class="mt-3" style="max-width: 100%">
@@ -72,6 +71,7 @@
                                 <th scope="col">KELAS</th>
                                 <th scope="col">NAMA WALI</th>
                                 <th scope="col">NO HP</th>
+                                <th scope="col">STATUS</th>
                                 <th scope="col">AKSI</th>
                             </tr>
                         </thead>
@@ -89,6 +89,7 @@
                                     <td>{{ $item->kelas }}</td>
                                     <td>{{ $item->orang_tua }}</td>
                                     <td>{{ $item->no_telepon }}</td>
+                                    <td>{{ $item->status }}</td>
                                     <td>
                                         <a href="#" class="btn btn-warning edit">Edit</a>
                                     </td>
@@ -157,6 +158,15 @@
                                             <label for="">Nomor Telepon</label>
                                             <input type="number" name="no_telepon" class="form-control"
                                                 placeholder="Masukkan nomor telepon">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Status</label>
+                                            <select class="form-select" name="status"
+                                                aria-label="Default select example">
+                                                <option selected>Pilih Status</option>
+                                                <option value="bpulang">sedang dipesantren</option>
+                                                <option value="tbpulang">sedang pulang</option>
+                                            </select>
                                         </div>
 
                                     </div>
@@ -236,6 +246,15 @@
                                             <input type="number" name="no_telepon" id="no_telepon" class="form-control"
                                                 placeholder="Masukkan nomor telepon">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="">Status</label>
+                                            <select class="form-select" name="status" id="status"
+                                                aria-label="Default select example">
+                                                <option selected>Pilih Status</option>
+                                                <option value="bpulang">sedang dipesantren</option>
+                                                <option value="tbpulang">sedang pulang</option>
+                                            </select>
+                                        </div>
 
                                     </div>
                                     <div class="modal-footer">
@@ -278,6 +297,10 @@
                     target: 7,
                     visible: false,
                     searchable: false,
+                }, {
+                    target: 11,
+                    visible: false,
+                    searchable: false,
                 }, ],
             });
 
@@ -302,6 +325,7 @@
                 $('#kelas').val(data[8]);
                 $('#orang_tua').val(data[9]);
                 $('#no_telepon').val(data[10]);
+                $('#status').val(data[11]);
                 $('#editForm').attr('action', '/datasantri-edit');
                 $('#editModal').modal('show');
             });

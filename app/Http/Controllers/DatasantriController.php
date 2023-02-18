@@ -9,8 +9,9 @@ class DatasantriController extends Controller
 {
     public function index()
     {
+        $santricount = Santri::count();
         $santri = Santri::get();
-        return view('datasantri.index', ['santri' => $santri]);
+        return view('datasantri.index', ['santri' => $santri, 'santricount' => $santricount,]);
     }
 
     public function store(Request $request)
@@ -25,6 +26,7 @@ class DatasantriController extends Controller
             'kelas' => 'required',
             'orang_tua' => 'required',
             'no_telepon' => 'required',
+            'status' => 'required',
         ]);
 
         $santri = new Santri;
@@ -38,6 +40,7 @@ class DatasantriController extends Controller
         $santri->kelas = $request->input('kelas');
         $santri->orang_tua = $request->input('orang_tua');
         $santri->no_telepon = $request->input('no_telepon');
+        $santri->status = $request->input('status');
 
         $santri->save();
         return redirect('/datasantri')->with('success', ' Data Berhasil Disimpan ');
@@ -55,6 +58,7 @@ class DatasantriController extends Controller
             'kelas' => 'required',
             'orang_tua' => 'required',
             'no_telepon' => 'required',
+            'status' => 'required',
         ]);
         $santri = Santri::find($request->input('id'));
         $santri->nisn = $request->input('nisn');
@@ -66,6 +70,7 @@ class DatasantriController extends Controller
         $santri->kelas = $request->input('kelas');
         $santri->orang_tua = $request->input('orang_tua');
         $santri->no_telepon = $request->input('no_telepon');
+        $santri->status = $request->input('status');
 
         $santri->update();
         return redirect('/datasantri')->with('success', ' Data Berhasil DiPerbaharui ');

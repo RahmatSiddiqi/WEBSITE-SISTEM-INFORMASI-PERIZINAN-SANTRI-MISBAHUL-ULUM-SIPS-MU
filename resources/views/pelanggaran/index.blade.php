@@ -14,6 +14,8 @@
     </style>
 @endpush
 @section('content')
+    {{-- cdnlink --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
     <section id="pelanggaran">
         <div class="container">
             <div class="row">
@@ -30,8 +32,9 @@
                                 <path
                                     d="M8 8.293 6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293Z" />
                             </svg>
-                            <div class="mt-4 mx-5">
+                            <div class="d-inline-flex mt-4 mx-3">
                                 <h4 class="fw-bold">JUMLAH PELANGGARAN</h4>
+                                <h4 class="mx-4 fw-bold">{{ $pelanggarancount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -40,12 +43,12 @@
 
                 <div class="col-12 mt-5 d-inline-flex">
                     <div class="placebutton m-3">
-                        <button type="button"class="btn btn-primary text-black fw-semibold mx-4">Searching</button>
+
                     </div>
                 </div>
                 <div class="mt-3" style="max-width: 100%">
                     <h3 class="text-center">DATA PELANGGARAN</h3>
-                    <table class="table table-bordered border-dark">
+                    <table id="tabel1" class="table table-bordered border-dark">
                         <thead>
                             <tr>
                                 <th scope="col">NO</th>
@@ -56,31 +59,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry the Bird</td>
-                                <td>@twitter</td>
-                                <td>@twitter</td>
-                                <td>@twitter</td>
-                            </tr>
+                            @foreach ($perizinan->where('keterangan', '=', 'Tidak Tepat Waktu') as $item)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ $item->santri->nisn }}</< /td>
+                                    <td>{{ $item->santri->nama }}</td>
+                                    <td>{{ $item->santri->kelas }}</td>
+                                    <td>{{ $item->keterangan }}</td>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var table = $('#tabel1').DataTable({});
+        });
+    </script>
 @endsection

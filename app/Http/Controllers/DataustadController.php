@@ -10,9 +10,10 @@ class DataustadController extends Controller
 {
     public function index()
     {
+        $ustadcount = Ustad::count();
         $user = User::all();
         $ustad = Ustad::get();
-        return view('dataustad.index', ['ustad' => $ustad, 'user' => $user]);
+        return view('dataustad.index', ['ustad' => $ustad, 'user' => $user, 'ustadcount' => $ustadcount,]);
     }
 
     public function store(Request $request)

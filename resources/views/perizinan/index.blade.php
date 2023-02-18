@@ -14,6 +14,8 @@
     </style>
 @endpush
 @section('content')
+    {{-- cdnlink --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <section id="perizinan">
         <div class="container">
@@ -31,8 +33,9 @@
                                 <path
                                     d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
                             </svg>
-                            <div class="mt-4 mx-5">
+                            <div class="d-inline-flex mt-4 mx-5">
                                 <h4 class="fw-bold">JUMLAH PERIZINAN</h4>
+                                <h4 class="mx-5 fw-bold">{{ $perizinancount }}</h4>
                             </div>
                         </div>
                     </div>
@@ -42,22 +45,20 @@
                 <div class="col-12 mt-5 d-inline-flex">
                     <div class="placebutton m-3">
                         <!-- Button trigger modal tambah -->
-                        @if (\Session::has('success'))
-                            <div class="alert alert-success">
-                                <p>{{ \Session::get('success') }}</p>
+                        @if (Session('message'))
+                            <div class="alert {{ session('alert-class') }}">
+                                {{ Session('message') }}
                             </div>
                         @endif
                         <button type="button" class="btn btn-primary text-black fw-semibold" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
-                            Tambah Data +
+                            Tambah Perizinan +
                         </button>
-
-                        <button type="button"class="btn btn-primary text-black fw-semibold mx-4">Searching</button>
                     </div>
                 </div>
                 <div class=" mt-3" style="max-width: 100%">
                     <h3 class="text-center">DATA PERIZINAN</h3>
-                    <table class="table table-bordered border-dark">
+                    <table id="tabel1" class="table table-bordered border-dark">
                         <thead>
                             <tr>
                                 <th scope="col">NO</th>
@@ -65,9 +66,8 @@
                                 <th scope="col">NAMA</th>
                                 <th scope="col">TANGGAL IZIN</th>
                                 <th scope="col">TANGGAL BALIK</th>
-                                <th scope="col">KETERANGAN</th>
+                                <th scope="col">ALASAN IZIN</th>
                                 <th scope="col">TERTANDA</th>
-                                <th scope="col">AKSI</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,7 +80,7 @@
                                     <td>{{ $item->tgl_balik }}</td>
                                     <td>{{ $item->alasan_izin }}</td>
                                     <td>{{ $item->user->name }}</td>
-                                    <td>aksi</td>
+
                                 </tr>
                             @endforeach
                         </tbody>
@@ -98,6 +98,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
+
                                 <form action="{{ route('perizinan-add') }}" method="POST">
                                     @csrf
                                     <div class="modal-body">
@@ -122,9 +123,9 @@
                                             <input type="date" name="tgl_balik" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="">Keterangan</label>
+                                            <label for="">Alasan izin</label>
                                             <input type="text" name="alasan_izin" class="form-control"
-                                                placeholder="Masukkan alamat">
+                                                placeholder="Masukkan alasan izin">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Tertanda</label>
@@ -150,8 +151,11 @@
             </div>
         </div>
     </section>
-
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         // In your Javascript (external .js resource or <script> tag)
@@ -160,6 +164,12 @@
                 dropdownParent: $('#exampleModal'),
                 width: "100%"
             });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var table = $('#tabel1').DataTable({});
         });
     </script>
 @endsection

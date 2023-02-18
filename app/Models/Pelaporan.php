@@ -9,6 +9,10 @@ class Pelaporan extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id', 'perizinan_id', 'tgl_balik', 'keterangan',
+    ];
+
     public function perizinan()
     {
         return $this->belongsTo(Perizinan::class);

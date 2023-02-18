@@ -38,7 +38,8 @@ Route::put('/dataustad-edit', [\App\Http\Controllers\DataustadController::class,
 Route::get('/perizinan', [\App\Http\Controllers\PerizinanController::class, 'index'])->name('perizinan');
 Route::post('/perizinan-add', [\App\Http\Controllers\PerizinanController::class, 'store'])->name('perizinan-add');
 
-Route::get('/pelaporan', [\App\Http\Controllers\PelaporanController::class, 'index'])->name('pelaporan');
+Route::get('/pelaporan', [\App\Http\Controllers\PerizinanController::class, 'pelaporanview'])->name('pelaporan');
+Route::post('/pelaporan-add', [\App\Http\Controllers\PerizinanController::class, 'storepelaporan'])->name('pelaporan-add');
 
 Route::get('/pelanggaran', [\App\Http\Controllers\PelanggaranController::class, 'index'])->name('pelanggaran');
 

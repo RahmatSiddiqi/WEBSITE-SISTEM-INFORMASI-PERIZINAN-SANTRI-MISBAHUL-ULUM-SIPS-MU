@@ -19,7 +19,9 @@ class CreatePerizinansTable extends Migration
             $table->id();
             $table->date('tgl_pulang')->required();
             $table->date('tgl_balik')->required();
+            $table->date('actual_tgl_balik')->nullable();
             $table->string('alasan_izin', 100)->required();
+            $table->string('keterangan', 100)->nullable();
             $table->foreignIdFor(new User());
             $table->foreignIdFor(new Santri());
             $table->timestamps();
